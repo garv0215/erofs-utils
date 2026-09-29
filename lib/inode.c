@@ -597,7 +597,7 @@ static struct erofs_vfile *erofs_dirwriter_open(struct erofs_inode *dir)
 {
 	struct erofs_dirwriter_vf *dwv;
 
-	dwv = malloc(sizeof(*dwv) + erofs_blksiz(dir->sbi));
+	dwv = calloc(1, sizeof(*dwv) + erofs_blksiz(dir->sbi));
 	if (!dwv)
 		return ERR_PTR(-ENOMEM);
 	dwv->vf.ops = &erofs_dirwriter_vfops;
