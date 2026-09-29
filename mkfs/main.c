@@ -1551,10 +1551,8 @@ static int mkfs_parse_options_cfg(struct erofs_importer_params *params,
 			return err;
 	}
 
-	if (quiet) {
-		cfg.c_dbg_lvl = EROFS_ERR;
+	if (quiet)
 		cfg.c_showprogress = false;
-	}
 
 	if (pclustersize_max) {
 		if (pclustersize_max < (1U << mkfs_blkszbits) ||
@@ -1743,7 +1741,7 @@ static void erofs_mkfs_showsummaries(void)
 	char uuid_str[37] = {};
 	char *incr = incremental_mode ? "new" : "total";
 
-	if (!(cfg.c_dbg_lvl > EROFS_ERR && cfg.c_showprogress))
+	if (cfg.c_dbg_lvl <= EROFS_ERR)
 		return;
 
 	erofs_uuid_unparse_lower(g_sbi.uuid, uuid_str);
